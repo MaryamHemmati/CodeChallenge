@@ -20,4 +20,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Services\Fainances\Commands\" />
+	  <Folder Include="Services\Fainances\Queries\" />
+	</ItemGroup>
 </Project>
