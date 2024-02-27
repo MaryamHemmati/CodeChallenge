@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -235,5 +236,7 @@ namespace DataSample.Common
             buffer[offset + 2] = (byte)(value >> 8);
             buffer[offset + 3] = (byte)(value >> 0);
         }
+
+        
     }
 }

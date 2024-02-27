@@ -31,6 +31,7 @@ namespace DataSample.Application.Services.Users.Commands.RgegisterUser
         {
             try
             {
+                var rolesL = _context.Roles.ToList();
                 if (string.IsNullOrWhiteSpace(request.Email))
                 {
                     return new ResultDto<ResultRegisterUserDto>()
@@ -137,7 +138,7 @@ namespace DataSample.Application.Services.Users.Commands.RgegisterUser
                     Message = "ثبت نام کاربر انجام شد",
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new ResultDto<ResultRegisterUserDto>()
                 {
@@ -162,12 +163,12 @@ namespace DataSample.Application.Services.Users.Commands.RgegisterUser
 
     public class RolesInRegisterUserDto
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 
     public class ResultRegisterUserDto
     {
-        public long UserId { get; set; }
+        public int UserId { get; set; }
     }
 
 

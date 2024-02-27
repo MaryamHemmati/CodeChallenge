@@ -1,5 +1,10 @@
+using DataSample.Domain.Entities.Users;
+using System.Security.Claims;
+
 namespace EndPoint.API
 {
+
+   
     public class WeatherForecast
     {
         public DateOnly Date { get; set; }
@@ -9,5 +14,7 @@ namespace EndPoint.API
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
         public string? Summary { get; set; }
+
+        
     }
 }
