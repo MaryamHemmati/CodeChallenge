@@ -79,16 +79,8 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ValidatorDto>());
 
-//ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("fa");
 var app = builder.Build();
 init.Configure(app);
-//using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-//{
-//    var context = serviceScope.ServiceProvider.GetRequiredService<DataBaseContext>();
-//    context.Database.Migrate();
-//    context.Database.EnsureDeleted();
-
-//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

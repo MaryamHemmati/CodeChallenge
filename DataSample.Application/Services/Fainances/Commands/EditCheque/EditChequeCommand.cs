@@ -80,8 +80,8 @@ namespace DataSample.Application.Services.Fainances.Commands
             .WithMessage("Invalid SayadNo Length");
 
             RuleFor(v => v.ShebaNoCreditor)
-            .MaximumLength(24)
-            .MinimumLength(24)
+            .MaximumLength(26)
+            .MinimumLength(26)
             .NotEmpty()
             .WithMessage("Invalid ShebaNoCreditor Length");
 
