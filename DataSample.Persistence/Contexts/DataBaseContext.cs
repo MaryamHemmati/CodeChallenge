@@ -31,8 +31,19 @@ namespace DataSample.Persistence.Contexts
 
             //Seed Data
             SeedData(modelBuilder);
+            ApplyQueryFilter(modelBuilder);
 
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<Cheque>().HasIndex(u => u.SayadNo).IsUnique();
+
+        }
+
+        private void ApplyQueryFilter(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<UserInRole>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Cheque>().HasQueryFilter(p => !p.IsRemoved);
         }
         private void SeedData(ModelBuilder modelBuilder)
         {

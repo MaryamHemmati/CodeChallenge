@@ -10,6 +10,7 @@ using DataSample.Common.Dto;
 using EndPoint.ApI.Models.ViewModels.AuthenticationViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Controllers
@@ -29,6 +30,7 @@ namespace EndPoint.Site.Controllers
         }
 
         [HttpPost]
+        [Route("Signup")]
         public ResultDto Signup(SignupViewModel request)
         {
             if (string.IsNullOrWhiteSpace(request.FullName) ||
@@ -96,36 +98,38 @@ namespace EndPoint.Site.Controllers
             return new ResultDto { IsSuccess = signeupResult.IsSuccess, Message = signeupResult.Message };
         }
 
-        //[HttpPost]
-        //public ResultDto Signin(SignInViewModel request)
-        //{
-        //    var signupResult = _userLoginService.Execute(request.Email, request.Password);
-        //    if (signupResult.IsSuccess == true)
-        //    {
-        //        var claims = new List<Claim>()
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
-        //        new Claim(ClaimTypes.Email, request.Email),
-        //        new Claim(ClaimTypes.Name, signupResult.Data.Name),
+        [HttpPost]
+        [Route("SignIn")]
 
-        //    };
-        //        foreach (var item in signupResult.Data.Roles)
-        //        {
-        //            claims.Add(new Claim(ClaimTypes.Role, item));
-        //        }
+        public ResultDto SignIn([FromForm] SignInViewModel request)
+        {
+            var signupResult = _userLoginService.Execute(request.Email, request.Password);
+            if (signupResult.IsSuccess == true)
+            {
+                var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
+                new Claim(ClaimTypes.Email, request.Email),
+                new Claim(ClaimTypes.Name, signupResult.Data.Name),
 
-        //        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        //        var principal = new ClaimsPrincipal(identity);
-        //        var properties = new AuthenticationProperties()
-        //        {
-        //            IsPersistent = true,
-        //            ExpiresUtc = DateTime.Now.AddDays(5),
-        //        };
-        //        HttpContext.SignInAsync(principal, properties);
+            };
+                foreach (var item in signupResult.Data.Roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item));
+                }
 
-        //    }
-        //    return new ResultDto { IsSuccess = signupResult.IsSuccess, Message = signupResult.Message };
-        //}
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                var properties = new AuthenticationProperties()
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.Now.AddDays(5),
+                };
+                HttpContext.SignInAsync(principal, properties);
+
+            }
+            return new ResultDto { IsSuccess = signupResult.IsSuccess, Message = signupResult.Message };
+        }
 
     }
 }
